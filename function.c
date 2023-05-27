@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "main.h"
+#include "_putchar.c"
 /**
 *print_int - prints the function
 *convert_size_number - coverts given number based on size
@@ -30,7 +31,7 @@ if (num < 0)
 {
 n = (unsigned long int)(-1 * num);
 }
-while (n > 0)
+while (num > 0)
 {
 buffer[j--] = (n % 10) + '0';
 n /= 10;
