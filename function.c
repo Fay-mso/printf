@@ -3,15 +3,40 @@
 #include <stdlib.h>
 #include "main.h"
 /**
-*main - function that prints d and i
+*_printf- function that prints d and i
+*@format: format
 *code for format specifier
 *Return: 0
 **/
-int main(void)
+int _printf(const char *format, ...)
 {
-int years = 35;
-int b = 3030;
-printf("I am %d old\n", years);
-printf("%i\n", b);
-return (0);
+int i = 0;
+va_list(length);
+va_start(length, format);
+while (*format != '\0')
+{
+if (*format == '%')
+{
+format++;
+if (*format == 'd' || *format == 'i')
+{
+int value = va_arg(length, int);
+i += printf("%d", value);
+}
+else
+{
+putchar(*format);
+i+= 2;
+putchar('%');
+}
+}
+else
+{
+putchar(*format);
+i++;
+}
+format++;
+}
+va_end(length);
+return (i);
 }
