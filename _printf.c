@@ -3,14 +3,47 @@
 #include "main.h"
 
 /**
- * print_char - Print a single character
+ * _putchar - Custom putchar function
  * @c: Character to be printed
  *
  * Return: Number of characters printed (always 1)
  */
-int print_char(char c)
+int _putchar(char c)
 {
-putchar(c);
+return (putchar(c));
+}
+
+/**
+ * print_number - Print an integer
+ * @n: Integer to be printed
+ *
+ * Return: Number of characters printed
+ */
+int print_number(int n)
+{
+int count = 0;
+if (n < 0)
+{
+_putchar('-');
+count++;
+n = -n;
+}
+if (n / 10)
+count += print_number(n / 10);
+_putchar((n % 10) + '0');
+count++;
+return (count);
+}
+
+/**
+ * print_char - Print a character
+ * @ch: Character to be printed
+ *
+ * Return: Number of characters printed
+ */
+int print_char(char ch)
+{
+_putchar(ch);
 return (1);
 }
 
@@ -20,18 +53,16 @@ return (1);
  *
  * Return: Number of characters printed
  */
-int print_string(char *str)
+int print_string(const char *str)
 {
-int printed_chars = 0;
-if (str == NULL)
-str = "(null)";
-while (*str != '\0')
+int count = 0;
+while (*str)
 {
-putchar(*str);
+_putchar(*str);
 str++;
-printed_chars++;
+count++;
 }
-return (printed_chars);
+return (count);
 }
 
 /**
@@ -44,8 +75,7 @@ int _printf(const char *format, ...)
 {
 va_list args;
 int printed_chars = 0;
-char c;
-char *str;
+int num;
 va_start(args, format);
 while (*format != '\0')
 {
@@ -55,12 +85,16 @@ format++;
 switch (*format)
 {
 case 'c':
-c = (char) va_arg(args, int);
-printed_chars += print_char(c);
+num = va_arg(args, int);
+printed_chars += print_char((char)num);
 break;
 case 's':
-str = va_arg(args, char *);
-printed_chars += print_string(str);
+printed_chars += print_string(va_arg(args, char *));
+break;
+case 'd':
+case 'i':
+num = va_arg(args, int);
+printed_chars += print_number(num);
 break;
 case '%':
 printed_chars += print_char('%');
