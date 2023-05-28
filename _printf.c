@@ -20,6 +20,13 @@ write(1, buf, *buff_ind);
 *buff_ind = 0;
 }
 /**
+*my_putchar - writes character
+**/
+void my_putchar(char c)
+{
+write(1, &c, 1);
+}
+/**
  * print_char - Print a character
  * @ch: Character to be printed
  *
