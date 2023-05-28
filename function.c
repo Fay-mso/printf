@@ -13,7 +13,7 @@
 int print_char(va_list types)
 {
 char c = va_arg(types, int);
-return putchar(c);
+return (putchar(c));
 }
 
 /************************* PRINT STRING *************************/
@@ -29,7 +29,7 @@ char *str = va_arg(types, char *);
 if (str == NULL)
 str = "(null)";
 
-return puts(str);
+return (puts(str));
 }
 
 /************************* PRINT PERCENT SIGN *************************/
@@ -41,7 +41,7 @@ return puts(str);
 int print_percent(va_list types)
 {
 (void)types;
-return putchar('%');
+return (putchar('%'));
 }
 
 /************************* PRINT INT *************************/
@@ -53,7 +53,7 @@ return putchar('%');
 int print_int(va_list types)
 {
 int n = va_arg(types, int);
-return printf("%d", n);
+return (printf("%d", n));
 }
 
 /************************* PRINT BINARY *************************/
@@ -65,6 +65,6 @@ return printf("%d", n);
 int print_binary(va_list types)
 {
 unsigned int n = va_arg(types, unsigned int);
-return printf("%u", n);
+return (printf("%u", n));
 }
 
