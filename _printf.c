@@ -2,93 +2,76 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "main.h"
+#include <string.h>
 #define BUFFSIZE 1024
-int get_width(int *j, const char *format, va_list args);
-int get_flags(const char *format, int *j);
-int get_precision(const char *format, int *j, va_list args);
-int get_size(const char *format, int *j);
-
 /**
-* print_buffer - prints buffer
-* @buf: buffer to be printed
-* @buff_ind: pointer to the buffer index
-*/
-void print_buffer(char buf[], int *buff_ind)
+ * print_buffer - Prints the contents of the buffer if it exists
+ * @buffer: Array of characters
+ * @buff_ind: Index at which to add next character, represents the length
+ */
+void print_buffer(char buffer[], int *buff_ind)
 {
 if (*buff_ind > 0)
-write(1, buf, *buff_ind);
+{
+fwrite(buffer, sizeof(char), *buff_ind, stdout);
+}
 *buff_ind = 0;
 }
-/**
-*my_putchar - writes character
-**/
-void my_putchar(char c)
-{
-write(1, &c, 1);
-}
-/**
- * print_char - Print a character
- * @ch: Character to be printed
- *
- * Return: Number of characters printed
- */
-int print_char(char ch)
-{
-_putchar(ch);
-return (1);
-}
+void print_buffer(char buffer[], int *buff_ind);
 
 /**
- * print_string - Print a string
- * @str: String to be printed
- *
- * Return: Number of characters printed
- */
-int print_string(const char *str)
-{
-int count = 0;
-while (*str)
-{
-_putchar(*str);
-str++;
-count++;
-}
-return (count);
-}
-
-/**
- * _printf - Custom printf function
+ * custom_printf - Custom printf function
  * @format: Format string
- *
+ * @args: Variable arguments
  * Return: Number of characters printed
  */
-int _printf(const char *format, ...)
+int custom_printf(const char *format, ...)
 {
-int j = 0;
 int printed_chars = 0;
-va_list args;
-char buf[BUFFSIZE];
+char buffer[BUFFSIZE];
 int buff_ind = 0;
+va_list args;
 va_start(args, format);
-if (format == NULL)
-return (-1);
-for (j = 0; format && format[j] != '\0'; j++)
+while (*format != '\0')
 {
-if (format[j] != '%')
+if (*format != '%')
 {
-buf[buff_ind++] = format[j];
+buffer[buff_ind++] = *format;
 if (buff_ind == BUFFSIZE)
-print_buffer(buf, &buff_ind);
+{
+print_buffer(buffer, &buff_ind);
+}
+putchar(*format);
 printed_chars++;
 }
 else
 {
-print_buffer(buf, &buff_ind);
-j++;
+print_buffer(buffer, &buff_ind);
+format++; 
+switch (*format)
+{
+case 'd':
+{
+int num = va_arg(args, int);
+printf("%d", num);
 printed_chars++;
+break;
+}
+case 's':
+{
+char *str = va_arg(args, char *);
+printf("%s", str);
+printed_chars += strlen(str);
+break;
+}
+default:
+break;
 }
 }
+format++;
+}
+print_buffer(buffer, &buff_ind);
 va_end(args);
-print_buffer(buf, &buff_ind);
-return (printed_chars);
+return printed_chars;
 }
+
