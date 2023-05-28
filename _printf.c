@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
+#include <unistd.h>
 #include "main.h"
 #define BUFFSIZE 1024
 int get_width(int *j, const char *format, va_list args);
@@ -57,7 +58,7 @@ return (count);
 int _printf(const char *format, ...)
 {
 int j = 0;
-int printed = 0, printed_chars = 0;
+int printed_chars = 0;
 va_list args;
 char buf[BUFFSIZE];
 int buff_ind = 0;
