@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdio.h>
 
 int main(void)
 {
@@ -12,7 +11,6 @@ _putchar('\n');
 _printf("Character: %c\n", ch);
 _printf("String: %s\n", str);
 _printf("Percentage: %%\n");
-
 return (0);
 }
 

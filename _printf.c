@@ -1,5 +1,5 @@
+#include <stdio.h>
 #include <stdarg.h>
-#include <unistd.h>
 #include "main.h"
 #define BUFFSIZE 1024
 int get_width(int *j, const char *format, va_list args);
@@ -18,13 +18,42 @@ if (*buff_ind > 0)
 write(1, buf, *buff_ind);
 *buff_ind = 0;
 }
+/**
+ * print_char - Print a character
+ * @ch: Character to be printed
+ *
+ * Return: Number of characters printed
+ */
+int print_char(char ch)
+{
+_putchar(ch);
+return (1);
+}
 
 /**
-* _printf - prints string pointed out by format
-* @format: format string
-*
-* Return: number of characters printed (excluding null byte)
-*/
+ * print_string - Print a string
+ * @str: String to be printed
+ *
+ * Return: Number of characters printed
+ */
+int print_string(const char *str)
+{
+int count = 0;
+while (*str)
+{
+_putchar(*str);
+str++;
+count++;
+}
+return (count);
+}
+
+/**
+ * _printf - Custom printf function
+ * @format: Format string
+ *
+ * Return: Number of characters printed
+ */
 int _printf(const char *format, ...)
 {
 int j = 0;
@@ -48,13 +77,10 @@ else
 {
 print_buffer(buf, &buff_ind);
 j++;
-if (printed == -1)
-return (-1);
-printed_chars += printed;
+printed_chars++;
 }
 }
 va_end(args);
 print_buffer(buf, &buff_ind);
 return (printed_chars);
 }
-
