@@ -1,3 +1,8 @@
+/**
+ * main - main function
+ *
+ * Return: 0 if okay
+ */
 #include "main.h"
 #include <stdio.h>
 
